@@ -3,18 +3,28 @@ import sys
 import os
 
 # 添加当前目录到Python路径 - 这是关键修复！
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'src'))
+current_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.dirname(current_dir)  # 获取项目根目录
+sys.path.insert(0, project_root)
+sys.path.insert(0, current_dir)  # 添加当前src目录
 
-# 现在导入你的自定义模块
-from core.data.processor import DataProcessor
-from tasks.task1_preprocessing import TaskIPrepprocessor
-from tasks.task2_multidimensional import Task2Analyzer
-from tasks.task3_forecasting import Task3Forecaster
-from tasks.task4_optimization import TaskAppthizer
-from utils.config.utils import load_config
+# 现在导入标准库和第三方库
+import pandas as pd
 import warnings
 warnings.filterwarnings('ignore')
+
+# 然后导入你的自定义模块
+try:
+    from core.data.processor import DataProcessor
+    from tasks.task1_preprocessing import Task1Preprocessor  # 注意这里修正了拼写错误
+    from tasks.task2_multidimensional import Task2Analyzer
+    from tasks.task3_forecasting import Task3Forecaster
+    from tasks.task4_optimization import Task4Optimizer  # 注意这里修正了类名
+    from utils.config.utils import load_config
+    st.success("✅ 所有模块导入成功！")
+except ImportError as e:
+    st.error(f"❌ 模块导入失败: {e}")
+    st.info("请检查项目结构是否正确")
 
 def initialize_session_state():
     default_states = {
@@ -145,7 +155,7 @@ def show_task1_preprocessing():
 
             if st.button("🚀 开始数据预处理", type="primary"):
                 with st.spinner("正在执行数据预处理..."):
-                    task1 = Task1Preprocessor(df_clean)
+                    task1 = Task1Preprocessor(df_clean)  # 修正了类名
                     result_files, progress_log = task1.generate_all_results()
 
                     if result_files:
@@ -211,7 +221,7 @@ def show_task4_optimization():
         st.warning("请先在数据预处理页面上传数据")
         return
     
-    optimizer = Task4Optimizer(st.session_state.raw_data)
+    optimizer = Task4Optimizer(st.session_state.raw_data)  # 修正了类名
     
     if st.button("执行运营优化", type="primary"):
         with st.spinner("正在执行运营优化..."):
@@ -253,4 +263,3 @@ def show_system_status():
 
 if __name__ == "__main__":
     main()
-
