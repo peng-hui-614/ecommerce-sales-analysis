@@ -143,8 +143,15 @@ def show_task1_preprocessing():
     if uploaded_file is not None:
         try:
             processor = DataProcessor()
+            
+            # 改进的文件读取逻辑
             if uploaded_file.name.endswith('.xlsx'):
-                df = pd.read_excel(uploaded_file)
+                try:
+                    df = pd.read_excel(uploaded_file, engine='openpyxl')
+                except ImportError:
+                    st.error("❌ 缺少 openpyxl 库，无法读取 Excel 文件")
+                    st.info("请在 requirements.txt 中添加 'openpyxl>=3.1.0'")
+                    return
             else:
                 df = pd.read_csv(uploaded_file)
 
@@ -272,3 +279,4 @@ def show_system_status():
 
 if __name__ == "__main__":
     main()
+
