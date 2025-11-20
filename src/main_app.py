@@ -1,10 +1,18 @@
 import streamlit as st
-from src.core.data_processor import DataProcessor
-from src.tasks.task1_preprocessing import Task1Preprocessor
-from src.tasks.task2_multidimensional import Task2Analyzer
-from src.tasks.task3_forecasting import Task3Forecaster
-from src.tasks.task4_optimization import Task4Optimizer
-from src.utils.config_utils import load_config
+import sys
+import os
+
+# 添加当前目录到Python路径 - 这是关键修复！
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'src'))
+
+# 现在导入你的自定义模块
+from core.data.processor import DataProcessor
+from tasks.task1_preprocessing import TaskIPrepprocessor
+from tasks.task2_multidimensional import Task2Analyzer
+from tasks.task3_forecasting import Task3Forecaster
+from tasks.task4_optimization import TaskAppthizer
+from utils.config.utils import load_config
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -245,3 +253,4 @@ def show_system_status():
 
 if __name__ == "__main__":
     main()
+
