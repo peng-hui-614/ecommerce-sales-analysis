@@ -1,20 +1,22 @@
-class Settings:
-    PAGE_CONFIG = {
-        "page_title": "电商销售分析与策略优化系统",
-        "page_icon": "📊",
-        "layout": "wide",
-        "initial_sidebar_state": "expanded"
+SETTINGS = {
+    'data_processing': {
+        'missing_threshold': 0.5,
+        'outlier_threshold': 3.0,
+        'standardization_method': 'zscore'
+    },
+    'analysis': {
+        'clustering_n_clusters': 3,
+        'correlation_threshold': 0.7,
+        'confidence_level': 0.95
+    },
+    'visualization': {
+        'color_palette': 'viridis',
+        'figure_size': (12, 8),
+        'dpi': 300
+    },
+    'forecasting': {
+        'test_size': 0.2,
+        'arima_order': (2, 1, 2),
+        'forecast_horizon': 14
     }
-
-    DATA_CONFIG = {
-        "supported_formats": [".xlsx", ".csv"],
-        "max_file_size": 200
-    }
-
-    ANALYSIS_CONFIG = {
-        "default_test_size": 0.2,
-        "random_state": 42
-    }
-
-
-settings = Settings()
+}
